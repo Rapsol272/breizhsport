@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "844924763243",
+    "project_id": "breizhsport-b1f64",
+    "storage_bucket": "breizhsport-b1f64.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:844924763243:android:b69184c89ab55790e5052e",
+        "android_client_info": {
+          "package_name": "com.example.breizhsport"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRczfbz5JU-1t-GCJJ-qYlyHqoHZ7VqNg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
