@@ -7,5 +7,9 @@ class Cart {
     items.add(product);
   }
 
+  void clear() {
+    items.clear();
+  }
+
   double get total => items.fold(0, (sum, item) => sum + item.price);
 }

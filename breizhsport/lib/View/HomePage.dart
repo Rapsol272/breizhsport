@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:flutter/material.dart';
 import '../Ressources/Cart.dart';
 import '../Ressources/Product.dart';
@@ -7,10 +6,18 @@ import 'CartPage.dart';
 import 'LoginPage.dart';
 
 class HomePage extends StatefulWidget {
+  //create a list of products sweat shirt and others sport clothes
   final List<Product> products = [
-    Product(name: 'Product 1', price: 10),
-    Product(name: 'Product 2', price: 20),
-    Product(name: 'Product 3', price: 30),
+    Product(name: 'Sweat Shirt', price: 29.99 , image: 'https://imgs.search.brave.com/FqwivKp0Naqcw0ZMVYtheGGa0NcdXm1KGHVhtI6RU-Y/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMudW5zcGxhc2gu/Y29tL3Bob3RvLTE0/NjAzNTM1ODE2NDEt/MzdiYWRkYWIwZmEy/P2l4bGliPXJiLTQu/MC4zJml4aWQ9TTN3/eE1qQTNmREI4TUh4/elpXRnlZMmg4TVRC/OGZITm9iMlZ6ZkdW/dWZEQjhmREI4Zkh3/dyZ3PTEwMDAmcT04/MA'),
+    Product(name: 'T-Shirt', price: 19.99),
+    Product(name: 'Short', price: 14.99),
+    Product(name: 'Socks', price: 9.99 , image: 'https://imgs.search.brave.com/tbqDSwtvHIXwmZFv3iPCKmsi2YVlaqwvpFkPwaiY8Os/rs:fit:500:0:0/g:ce/aHR0cHM6Ly9tLm1l/ZGlhLWFtYXpvbi5j/b20vaW1hZ2VzL0kv/MzE3S2VXdnpGYkwu/X0FDLl9TUjEyMCwx/MjAuanBn'),
+    Product(name: 'Shoes', price: 49.99),
+    Product(name: 'Gloves', price: 9.99),
+    Product(name: 'Cap', price: 9.99),
+    Product(name: 'Jacket', price: 39.99),
+    Product(name: 'Pants', price: 29.99),
+    Product(name: 'Belt', price: 9.99),
   ];
 
   @override
@@ -37,7 +44,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Shopping Site'),
+        title: Text('BreizhSport'),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart),
@@ -69,29 +76,49 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: GridView.builder(
         itemCount: widget.products.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 4,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+          childAspectRatio: 0.75,
+        ),
         itemBuilder: (BuildContext context, int index) {
           final product = widget.products[index];
           if (!_searchQuery.isEmpty && !product.name.contains(_searchQuery)) {
             return SizedBox.shrink();
           }
-          return ListTile(
-            title: Text(product.name),
-            subtitle: Text('\$${product.price}'),
-            trailing: IconButton(
-              icon: Icon(Icons.add_shopping_cart),
-              onPressed: () {
-                _cart.addItem(product);
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('Added to cart')),
-                );
-              },
-            ),
-          );
+          return ProductWidget(
+            product: product ,  
+            onAddToCart: () {
+              _cart.addItem(product);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('Added to cart')),
+              );
+            },);
         },
       ),
-    );
+      bottomNavigationBar: BottomAppBar(
+              child: Container(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'BreizhSport',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                    SizedBox(height: 16),
+                    Text(
+                      '© 2023 BreizhSport',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+          ),
+    ); 
   }
 }
 

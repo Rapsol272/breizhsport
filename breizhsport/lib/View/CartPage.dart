@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import '../Ressources/Cart.dart';
+import 'PaymentPage.dart';
 
 class CartPage extends StatelessWidget {
   final Cart cart;
@@ -35,8 +35,10 @@ class CartPage extends StatelessWidget {
               SizedBox(height: 16),
               ElevatedButton(
                 child: Text('Checkout'),
+                //quand on clique sur checkout on va sur la page de paiement
                 onPressed: () {
-                  // TODO: Implement checkout logic
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => PaymentPage(cart: cart)));
+                  
                 },
               ),
             ],
