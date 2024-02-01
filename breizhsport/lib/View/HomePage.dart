@@ -8,8 +8,6 @@ import 'LoginPage.dart';
 import 'ProfilPage.dart';
 
 
-
-
 class HomePage extends StatefulWidget {
   //create a list of products sweat shirt and others sport clothes
   final List<Product> products = [
