@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Breizhsport',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFFD84727)),
       ),
       home: HomePage(),
     );

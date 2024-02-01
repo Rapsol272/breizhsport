@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../Controllers/Auth.dart';
+import 'SignInPage.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -56,17 +57,12 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 16),
             TextButton(
               child: Text('Create Account'),
-              onPressed: () async {
-                final email = _emailController.text;
-                final password = _passwordController.text;
-                final user = await _auth.createUserWithEmailAndPassword(email, password);
-                if (user != null) {
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('Error creating account')),
-                  );
-                }
+              onPressed: () 
+              {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignInPage()),
+                );
               },
             ),
           ],
