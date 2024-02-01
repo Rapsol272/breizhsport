@@ -1,5 +1,4 @@
-
-import 'package:breizhsport/Services/ServicesProduct.dart';
+//import 'package:breizhsport/Services/ServicesProduct.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../Ressources/Cart.dart';
@@ -39,7 +38,6 @@ class _HomePageState extends State<HomePage> {
     User? _user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  final 
 
 
 @override
