@@ -9,7 +9,6 @@ import 'CartPage.dart';
 import 'LoginPage.dart';
 import 'ProfilPage.dart';
 
-
 class HomePage extends StatefulWidget {
   //create a list of products sweat shirt and others sport clothes
   /*final List<Product> products = [
@@ -27,7 +26,6 @@ class HomePage extends StatefulWidget {
      
   ];*/
 
-
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -35,13 +33,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final Cart _cart = Cart();
   String _searchQuery = '';
-    User? _user;
+  User? _user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-
-
-
-@override
+  @override
   void initState() {
     super.initState();
     _auth.authStateChanges().listen((user) {
@@ -49,14 +44,16 @@ class _HomePageState extends State<HomePage> {
         _user = user;
       });
     });
-    
   }
 
-    @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Image.network('https://www.breizhsport.com/wp-content/uploads/2020/10/logo-breizh-sport.png'),
+        title: const Image(
+          image: AssetImage('images/logo.png'),
+          height: 48,
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart),
@@ -69,7 +66,8 @@ class _HomePageState extends State<HomePage> {
               } else {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => CartPage(cart: _cart)),
+                  MaterialPageRoute(
+                      builder: (context) => CartPage(cart: _cart)),
                 );
               }
             },
@@ -88,120 +86,143 @@ class _HomePageState extends State<HomePage> {
                   MaterialPageRoute(builder: (context) => ProfilPage()),
                 );
               }
-              },
+            },
           ),
         ],
       ),
-      body:Padding(
-        padding: EdgeInsets.all( (MediaQuery.of(context).size.width / 200) * 4),
-        child:
-       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children : [
-          Padding(
-            padding: EdgeInsets.all( (MediaQuery.of(context).size.width / 200) * 4),
-            //search bar
-            child: TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                hintText: 'Rechercher un produit',
-                prefixIcon: Icon(Icons.search),
-                suffixIcon: IconButton(
-                  icon: Icon(Icons.close),
-                  onPressed: () {
-                    setState(() {
-                      _searchQuery = '';
-                    });
-                  },
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _searchQuery = value;
-                });
-              },
-            ),
-          ),
-          Title(
-            color: Colors.black ,
-             child: Text('Produits',
-              style: TextStyle(
-                fontSize: ((MediaQuery.of(context).size.width+1000) / 400).floor()  * 8, 
-              fontWeight: FontWeight.bold),
-              )
-             ),
-          Expanded(
-            child: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance.collection('products').snapshots(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-                final List<DocumentSnapshot> documents = snapshot.data!.docs;
-                final int crossAxisCount = ((MediaQuery.of(context).size.width / 300).floor() == 0 ? 1 : (MediaQuery.of(context).size.width / 300).floor());
-                final double crossAxisSpacing = (MediaQuery.of(context).size.width / 200) * 4;
-                final double mainAxisSpacing = (MediaQuery.of(context).size.width / 200) * 4;
-              return GridView.builder(
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: crossAxisCount,
-                  crossAxisSpacing: crossAxisSpacing,
-                  mainAxisSpacing: mainAxisSpacing,
-                  childAspectRatio: 1,
-                ),
-                itemCount: documents.length,
-                itemBuilder: (BuildContext context, int index, ) {
-                final Product product = Product.fromSnapshot(documents[index]);
-                
-                if (_searchQuery.isEmpty || product.name.toUpperCase().contains(_searchQuery.toUpperCase())) {
-                  return ProductWidget(
-                    product: product ,  
-                    cart: _cart,
-                    onAddToCart: () {
-                      _cart.addItem(product);
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Added to cart')),
-                      );
+      body: Padding(
+        padding: EdgeInsets.all((MediaQuery.of(context).size.width / 200) * 4),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding:
+                  EdgeInsets.all((MediaQuery.of(context).size.width / 200) * 4),
+              //search bar
+              child: TextField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  hintText: 'Rechercher un produit',
+                  prefixIcon: Icon(Icons.search),
+                  suffixIcon: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () {
+                      setState(() {
+                        _searchQuery = '';
+                      });
                     },
-                  );              
-                }
-                else {
-                  return Container();
-                }
-              }
-              );
-              },
-            ),
-          ),
-        ],
-      ),
-      ),
-        bottomNavigationBar : BottomAppBar(
-                child: Container(
-                  color: const Color(0xFFD84727),
-                  padding: EdgeInsets.all(8),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'BreizhSport',
-                        style: TextStyle(fontSize: ((MediaQuery.of(context).size.width+1000) / 400).floor() * 6, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height : ((MediaQuery.of(context).size.width+1000) / 400).floor()  * 1,
-                        width: MediaQuery.of(context).size.width
-                        ),
-                      Text(
-                        '© 2023 BreizhSport',
-                        style: TextStyle(fontSize: ((MediaQuery.of(context).size.width+1000) / 400).floor()  * 3),
-                      ),
-                    ],
                   ),
                 ),
+                onChanged: (value) {
+                  setState(() {
+                    _searchQuery = value;
+                  });
+                },
+              ),
             ),
-      );
+            Title(
+                color: Colors.black,
+                child: Text(
+                  'Produits',
+                  style: TextStyle(
+                      fontSize:
+                          ((MediaQuery.of(context).size.width + 1000) / 400)
+                                  .floor() *
+                              8,
+                      fontWeight: FontWeight.bold),
+                )),
+            Expanded(
+              child: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection('products')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                  final int crossAxisCount =
+                      ((MediaQuery.of(context).size.width / 300).floor() == 0
+                          ? 1
+                          : (MediaQuery.of(context).size.width / 300).floor());
+                  final double crossAxisSpacing =
+                      (MediaQuery.of(context).size.width / 200) * 4;
+                  final double mainAxisSpacing =
+                      (MediaQuery.of(context).size.width / 200) * 4;
+                  return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        crossAxisSpacing: crossAxisSpacing,
+                        mainAxisSpacing: mainAxisSpacing,
+                        childAspectRatio: 1,
+                      ),
+                      itemCount: documents.length,
+                      itemBuilder: (
+                        BuildContext context,
+                        int index,
+                      ) {
+                        final Product product =
+                            Product.fromSnapshot(documents[index]);
+
+                        if (_searchQuery.isEmpty ||
+                            product.name
+                                .toUpperCase()
+                                .contains(_searchQuery.toUpperCase())) {
+                          return ProductWidget(
+                            product: product,
+                            cart: _cart,
+                            onAddToCart: () {
+                              _cart.addItem(product);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Added to cart')),
+                              );
+                            },
+                          );
+                        } else {
+                          return Container();
+                        }
+                      });
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Container(
+          color: const Color(0xFFD84727),
+          padding: EdgeInsets.all(8),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'BreizhSport',
+                style: TextStyle(
+                    fontSize: ((MediaQuery.of(context).size.width + 1000) / 400)
+                            .floor() *
+                        6,
+                    fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                  height: ((MediaQuery.of(context).size.width + 1000) / 400)
+                          .floor() *
+                      1,
+                  width: MediaQuery.of(context).size.width),
+              Text(
+                '© 2023 BreizhSport',
+                style: TextStyle(
+                    fontSize: ((MediaQuery.of(context).size.width + 1000) / 400)
+                            .floor() *
+                        3),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
