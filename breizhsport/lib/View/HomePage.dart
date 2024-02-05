@@ -1,5 +1,7 @@
 //import 'package:breizhsport/Services/ServicesProduct.dart';
 
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +37,9 @@ class _HomePageState extends State<HomePage> {
   String _searchQuery = '';
   User? _user;
   final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  final Stream<QuerySnapshot> _productsStream =
+      FirebaseFirestore.instance.collection('products').snapshots();
 
   @override
   void initState() {
@@ -73,7 +78,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.people),
+            icon: const Icon(Icons.account_circle),
             onPressed: () {
               if (_user == null) {
                 Navigator.push(
@@ -145,16 +150,32 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection('products')
-                    .snapshots(),
+                stream: _productsStream,
                 builder: (context, snapshot) {
+                  if (snapshot.hasError) {
+                    return const Text('Something went wrong =/');
+                  }
+
                   if (!snapshot.hasData) {
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  final List<DocumentSnapshot> documents = snapshot.data!.docs;
+
+                  final List<DocumentSnapshot> documents = [];
+
+                  // Pour chaque document, on vérifie qu'il matche
+                  for (final document in snapshot.data!.docs) {
+                    Map<String, dynamic> product =
+                        document.data()! as Map<String, dynamic>;
+
+                    if (product['name']
+                        .toUpperCase()
+                        .contains(_searchQuery.toUpperCase())) {
+                      documents.add(document);
+                    }
+                  }
+
                   final int crossAxisCount =
                       ((MediaQuery.of(context).size.width / 300).floor() == 0
                           ? 1
@@ -175,25 +196,18 @@ class _HomePageState extends State<HomePage> {
                         final Product product =
                             Product.fromSnapshot(documents[index]);
 
-                        if (_searchQuery.isEmpty ||
-                            product.name
-                                .toUpperCase()
-                                .contains(_searchQuery.toUpperCase())) {
-                          return ProductWidget(
-                            product: product,
-                            cart: _cart,
-                            onAddToCart: () {
-                              _cart.addItem(product);
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content: Text(
-                                        '${product.name} a bien été ajouté au panier.')),
-                              );
-                            },
-                          );
-                        } else {
-                          return Container();
-                        }
+                        return ProductWidget(
+                          product: product,
+                          cart: _cart,
+                          onAddToCart: () {
+                            _cart.addItem(product);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text(
+                                      '${product.name} a bien été ajouté au panier.')),
+                            );
+                          },
+                        );
                       });
                 },
               ),
