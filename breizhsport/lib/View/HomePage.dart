@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            icon: Icon(Icons.shopping_cart),
+            icon: const Icon(Icons.shopping_cart),
             onPressed: () {
               if (_user == null) {
                 Navigator.push(
@@ -73,7 +73,7 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           IconButton(
-            icon: Icon(Icons.people),
+            icon: const Icon(Icons.people),
             onPressed: () {
               if (_user == null) {
                 Navigator.push(
@@ -88,6 +88,17 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              if (_user != null) {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              }
+            },
+          ),
         ],
       ),
       body: Padding(
@@ -95,19 +106,16 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding:
-                  EdgeInsets.all((MediaQuery.of(context).size.width / 200) * 4),
-              //search bar
-              child: TextField(
+            //search bar
+            TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
                   hintText: 'Rechercher un produit',
-                  prefixIcon: Icon(Icons.search),
+                  prefixIcon: const Icon(Icons.search),
                   suffixIcon: IconButton(
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     onPressed: () {
                       setState(() {
                         _searchQuery = '';
@@ -119,9 +127,7 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     _searchQuery = value;
                   });
-                },
-              ),
-            ),
+                }),
             Title(
                 color: Colors.black,
                 child: Text(
@@ -195,23 +201,10 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           color: const Color(0xFFD84727),
-          padding: EdgeInsets.all(8),
+          padding: const EdgeInsets.all(8),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'BreizhSport',
-                style: TextStyle(
-                    fontSize: ((MediaQuery.of(context).size.width + 1000) / 400)
-                            .floor() *
-                        6,
-                    fontWeight: FontWeight.bold),
-              ),
-              SizedBox(
-                  height: ((MediaQuery.of(context).size.width + 1000) / 400)
-                          .floor() *
-                      1,
-                  width: MediaQuery.of(context).size.width),
               Text(
                 '© 2023 BreizhSport',
                 style: TextStyle(
