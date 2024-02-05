@@ -4,15 +4,25 @@ import 'package:flutter/material.dart';
 class Cart {
   final List<Product> items = [];
 
-  void addItem(Product product) {
-    items.add(product);
+  void addItem(Product product , {int quantity = 1}) {
+    if (items.contains(product)) {
+      items[items.indexWhere((element) => element == product)].quantity += quantity;
+    } else {
+      product.quantity = quantity;
+      items.add(product);
+    }
+  }
+
+  void remove(Product product) {
+    items.remove(product);
   }
 
   void clear() {
     items.clear();
   }
 
-  double get total => items.fold(0, (sum, item) => sum + item.price);
+  double get total => items.fold(0, (total, current) => total + current.price * current.quantity);
+  double get totalQuantity => items.fold(0, (total, current) => total + current.quantity);
 }
 
 class AddToCartWidget extends StatelessWidget {
