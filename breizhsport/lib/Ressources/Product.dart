@@ -77,7 +77,7 @@ class ProductWidget extends StatelessWidget {
                       child: Image.network(
                         product.image!,
                         //gestion dynamic de la taille de l'image
-                        height: constraints.maxHeight * 0.5,
+                        height: constraints.maxHeight * 0.4,
                         fit: BoxFit.cover,
                         alignment: Alignment.center,
                       )),

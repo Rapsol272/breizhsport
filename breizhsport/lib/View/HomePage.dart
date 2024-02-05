@@ -162,12 +162,13 @@ class _HomePageState extends State<HomePage> {
                       (MediaQuery.of(context).size.width / 200) * 4;
                   final double mainAxisSpacing =
                       (MediaQuery.of(context).size.width / 200) * 4;
+
                   return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: crossAxisCount,
-                        crossAxisSpacing: crossAxisSpacing,
-                        mainAxisSpacing: mainAxisSpacing,
-                        childAspectRatio: 1,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                        childAspectRatio: 0.75,
                       ),
                       itemCount: documents.length,
                       itemBuilder: (
