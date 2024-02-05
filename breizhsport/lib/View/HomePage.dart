@@ -129,7 +129,7 @@ class _HomePageState extends State<HomePage> {
                   });
                 }),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 32, 32, 32),
+              padding: const EdgeInsets.fromLTRB(0, 32, 0, 32),
               child: Title(
                   color: Colors.black,
                   child: Text(
@@ -187,7 +187,9 @@ class _HomePageState extends State<HomePage> {
                             onAddToCart: () {
                               _cart.addItem(product);
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Added to cart')),
+                                SnackBar(
+                                    content: Text(
+                                        '${product.name} a bien été ajouté au panier.')),
                               );
                             },
                           );

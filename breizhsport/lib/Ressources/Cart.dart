@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 class Cart {
   final List<Product> items = [];
 
-  void addItem(Product product , {int quantity = 1}) {
+  void addItem(Product product, {int quantity = 1}) {
     if (items.contains(product)) {
-      items[items.indexWhere((element) => element == product)].quantity += quantity;
+      items[items.indexWhere((element) => element == product)].quantity +=
+          quantity;
     } else {
       product.quantity = quantity;
       items.add(product);
@@ -21,15 +22,18 @@ class Cart {
     items.clear();
   }
 
-  double get total => items.fold(0, (total, current) => total + current.price * current.quantity);
-  double get totalQuantity => items.fold(0, (total, current) => total + current.quantity);
+  double get total => items.fold(
+      0, (total, current) => total + current.price * current.quantity);
+  double get totalQuantity =>
+      items.fold(0, (total, current) => total + current.quantity);
 }
 
 class AddToCartWidget extends StatelessWidget {
   final VoidCallback onAddToCart;
   final BoxConstraints constraints;
 
-  AddToCartWidget({required this.onAddToCart , required this.constraints});
+  const AddToCartWidget(
+      {super.key, required this.onAddToCart, required this.constraints});
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +43,13 @@ class AddToCartWidget extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(Icons.shopping_cart),
-          SizedBox(
-            height: constraints.maxHeight * 0.08
-          ),
-          Text('Ajouter au panier'  ,
-          style: TextStyle(
-            fontSize: (constraints.maxHeight * 0.05) * 0.7,
-            fontWeight: FontWeight.bold,
-          ),
+          const Icon(Icons.shopping_cart),
+          Text(
+            'Ajouter au panier',
+            style: TextStyle(
+              fontSize: (constraints.maxHeight * 0.05) * 0.7,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ],
       ),
