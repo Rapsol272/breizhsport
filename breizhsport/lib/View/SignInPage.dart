@@ -75,7 +75,7 @@ class _SignInPageState extends State<SignInPage> {
               onPressed: () async {
                 final email = _emailController.text;
                 final password = _passwordController.text;
-                final user = await _auth.registerWithEmailAndPassword(email, password , _phoneController.text , _firstNameController.text , _lastNameController.text);
+                final user = await _auth.registerWithEmailAndPassword(_firstNameController.text, _lastNameController.text, _phoneController.text, email, password);
                 //si ok redirection vers la page d'accueil sinon message d'erreur
                 if (user != null) {
                   Navigator.pop(context);

@@ -155,8 +155,6 @@ class _HomePageState extends State<HomePage> {
                 itemCount: documents.length,
                 itemBuilder: (BuildContext context, int index, ) {
                 final Product product = Product.fromSnapshot(documents[index]);
-                
-                if (_searchQuery.isEmpty || product.name.toUpperCase().contains(_searchQuery.toUpperCase())) {
                   return ProductWidget(
                     product: product ,  
                     cart: _cart,
@@ -166,11 +164,7 @@ class _HomePageState extends State<HomePage> {
                         SnackBar(content: Text('Added to cart')),
                       );
                     },
-                  );              
-                }
-                else {
-                  return Container();
-                }
+                  );  
               }
               );
               },
