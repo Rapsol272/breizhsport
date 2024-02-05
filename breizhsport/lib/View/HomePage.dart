@@ -142,7 +142,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('products')
+                    .collection('products').where('name', arrayContains:  _searchQuery) 
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
