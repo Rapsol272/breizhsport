@@ -128,21 +128,24 @@ class _HomePageState extends State<HomePage> {
                     _searchQuery = value;
                   });
                 }),
-            Title(
-                color: Colors.black,
-                child: Text(
-                  'Produits',
-                  style: TextStyle(
-                      fontSize:
-                          ((MediaQuery.of(context).size.width + 1000) / 400)
-                                  .floor() *
-                              8,
-                      fontWeight: FontWeight.bold),
-                )),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 32, 32, 32),
+              child: Title(
+                  color: Colors.black,
+                  child: Text(
+                    'Produits',
+                    style: TextStyle(
+                        fontSize:
+                            ((MediaQuery.of(context).size.width + 1000) / 400)
+                                    .floor() *
+                                6,
+                        fontWeight: FontWeight.bold),
+                  )),
+            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
                 stream: FirebaseFirestore.instance
-                    .collection('products').where('name', arrayContains:  _searchQuery) 
+                    .collection('products')
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
