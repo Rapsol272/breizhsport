@@ -82,35 +82,37 @@ class ProductWidget extends StatelessWidget {
                         alignment: Alignment.center,
                       )),
                 Padding(
-                  padding: const EdgeInsets.all(8),
+                  padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         product.name,
                         style:
-                            TextStyle(fontSize: (constraints.maxHeight * 0.08)),
+                            TextStyle(fontSize: (constraints.maxHeight * 0.06)),
                       ),
                       Padding(
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
                           child: Text('${product.price.toStringAsFixed(2)} €',
                               style: TextStyle(
-                                fontSize: (constraints.maxHeight * 0.06),
+                                fontSize: (constraints.maxHeight * 0.04),
                                 fontWeight: FontWeight.bold,
                               ))),
-                      //ajout de la description du produit limmite a 3 lignes
+                      //ajout de la description du produit limmite a 4 lignes
                       Text(product.description,
-                          maxLines: 3,
+                          maxLines: 4,
                           style: TextStyle(
-                            fontSize: (constraints.maxHeight * 0.05) * 0.6,
-                            fontWeight: FontWeight.bold,
+                            fontSize: (constraints.maxHeight * 0.04),
+                            fontWeight: FontWeight.w100,
                           )),
-                      //SizedBox(height: constraints.maxHeight * 0.08),
                       Padding(
                           padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
-                          child: AddToCartWidget(
-                              onAddToCart: onAddToCart,
-                              constraints: constraints)),
+                          child: Align(
+                            alignment: Alignment.bottomCenter,
+                            child: AddToCartWidget(
+                                onAddToCart: onAddToCart,
+                                constraints: constraints),
+                          )),
                     ],
                   ),
                 ),

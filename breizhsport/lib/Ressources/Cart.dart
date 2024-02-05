@@ -38,6 +38,9 @@ class AddToCartWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: const Size.fromHeight(48),
+      ),
       onPressed: onAddToCart,
       //bouton avec le texte "Ajouter au panier et un icone de panier"
       child: Row(
@@ -47,8 +50,7 @@ class AddToCartWidget extends StatelessWidget {
           Text(
             'Ajouter au panier',
             style: TextStyle(
-              fontSize: (constraints.maxHeight * 0.05) * 0.7,
-              fontWeight: FontWeight.bold,
+              fontSize: (constraints.maxHeight * 0.04),
             ),
           ),
         ],

@@ -88,17 +88,18 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: () {
-              if (_user != null) {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
-                );
-              }
-            },
-          ),
+          if (_user != null)
+            IconButton(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                if (_user != null) {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => LoginPage()),
+                  );
+                }
+              },
+            ),
         ],
       ),
       body: Padding(
@@ -158,10 +159,6 @@ class _HomePageState extends State<HomePage> {
                       ((MediaQuery.of(context).size.width / 300).floor() == 0
                           ? 1
                           : (MediaQuery.of(context).size.width / 300).floor());
-                  final double crossAxisSpacing =
-                      (MediaQuery.of(context).size.width / 200) * 4;
-                  final double mainAxisSpacing =
-                      (MediaQuery.of(context).size.width / 200) * 4;
 
                   return GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -207,7 +204,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomAppBar(
         child: Container(
           color: const Color(0xFFD84727),
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(16),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -216,7 +213,7 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(
                     fontSize: ((MediaQuery.of(context).size.width + 1000) / 400)
                             .floor() *
-                        3),
+                        4),
               ),
             ],
           ),
