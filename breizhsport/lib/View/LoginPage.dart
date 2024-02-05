@@ -67,15 +67,67 @@ class _LoginPageState extends State<LoginPage> {
       //           ],
       //         )))
       body: Container(
-        alignment: Alignment.center,
-        child: const Card(
+        constraints: const BoxConstraints(
+          maxWidth: 640,
+        ),
+        child: Card(
           child: Padding(
-              padding: EdgeInsets.all(32),
+              padding: const EdgeInsets.all(32),
               child: Column(children: [
-                Text(
+                const Text(
                   "Se connecter",
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 32),
+                TextField(
+                  controller: _emailController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1),
+                    ),
+                    labelText: 'Email',
+                  ),
+                ),
+                const SizedBox(height: 32),
+                TextField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(width: 1),
+                    ),
+                    labelText: 'Password',
+                  ),
+                  obscureText: true,
+                ),
+                const SizedBox(height: 32),
+                ElevatedButton(
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const Icon(Icons.logout),
+                      Text('Se connecter'),
+                    ],
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: const Size.fromHeight(48),
+                  ),
+                  onPressed: () async {
+                    final email = _emailController.text;
+                    final password = _passwordController.text;
+                    final user =
+                        await _auth.signInWithEmailAndPassword(email, password);
+                    if (user != null) {
+                      Navigator.pop(context);
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                            content: Text(
+                                "L'adresse email ou le mot de passe est incorrect.")),
+                      );
+                    }
+                  },
+                ),
+                const Divider(),
               ])),
         ),
       ),
