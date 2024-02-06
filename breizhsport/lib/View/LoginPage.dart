@@ -24,6 +24,10 @@ class _LoginPageState extends State<LoginPage> {
               maxWidth: 640,
             ),
             child: Card(
+              // Add a border to the card
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                  side: BorderSide(color: Colors.grey)),
               child: Padding(
                   padding: const EdgeInsets.all(32),
                   child: Column(children: [
@@ -54,7 +58,6 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                     ),
                     const SizedBox(height: 32),
-                    // Full width button with rounded corners to connect to the server
                     ElevatedButton(
                       onPressed: () async {
                         final email = _emailController.text;

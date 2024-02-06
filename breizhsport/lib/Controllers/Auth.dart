@@ -12,18 +12,19 @@ class Auth {
 
   User? _userFromFirebaseUser(User? user) {
     return user;
-  
   }
 
- Future registerWithEmailAndPassword(String name, String prenom, String phone ,String email, String password) async {
+  Future registerWithEmailAndPassword(String name, String prenom, String phone,
+      String email, String password) async {
     try {
-      UserCredential result =
-          await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       User? user = result.user;
       if (user == null) {
         throw Exception("No user found");
       } else {
-        await DatabaseService( uid: user.uid).saveUser(name, prenom, email, phone );
+        await DatabaseService(uid: user.uid)
+            .saveUser(name, prenom, email, phone);
 
         return _userFromFirebaseUser(user);
       }
@@ -33,9 +34,11 @@ class Auth {
     }
   }
 
-  Future<User?> signInWithEmailAndPassword(String email, String password) async {
+  Future<User?> signInWithEmailAndPassword(
+      String email, String password) async {
     try {
-      final result = await _auth.signInWithEmailAndPassword(email: email, password: password);
+      final result = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return result.user;
     } catch (e) {
       print('Error signing in: $e');
@@ -44,9 +47,11 @@ class Auth {
   }
 
 //creation d'un compte firebase avec email et password et creation du user dans la base de donnée
-  Future<User?> createUserWithEmailAndPassword(String email, String password) async {
+  Future<User?> createUserWithEmailAndPassword(
+      String email, String password) async {
     try {
-      final result = await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      final result = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       //creation du user dans la base de donnée
 
       return result.user;
