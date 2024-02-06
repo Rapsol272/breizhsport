@@ -1,6 +1,7 @@
 import 'package:breizhsport/Controllers/Auth.dart';
 import 'package:breizhsport/View/LoginPage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -105,7 +106,7 @@ class _SignInPageState extends State<SignInPage> {
               // Add a border to the card
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
-                  side: BorderSide(color: Colors.grey)),
+                  side: const BorderSide(color: Colors.grey)),
               child: Padding(
                   padding: const EdgeInsets.all(32),
                   child: Column(children: [
@@ -123,6 +124,10 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         labelText: 'Adresse mail',
                       ),
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(
+                            r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$')),
+                      ],
                     ),
                     const SizedBox(height: 32),
                     // Row of text fields
@@ -161,6 +166,45 @@ class _SignInPageState extends State<SignInPage> {
                           borderSide: BorderSide(width: 1),
                         ),
                         labelText: 'Mot de passe',
+                      ),
+                      obscureText: true,
+                    ),
+                    const SizedBox(height: 32),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Card(
+                          color: Color.fromARGB(247, 255, 245, 237),
+                          child: Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    "Le mot de passe doit contenir au moins :"),
+                                SizedBox(height: 8),
+                                Text(
+                                    "  •  Le mot de passe doit contenir au moins :"),
+                                SizedBox(height: 8),
+                                Text(
+                                    "  •  Le mot de passe doit contenir au moins :"),
+                                SizedBox(height: 8),
+                                Text(
+                                    "  •  Le mot de passe doit contenir au moins :")
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 32),
+                    TextField(
+                      controller: _passwordController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1),
+                        ),
+                        labelText: 'Confirmation du mot de passe',
                       ),
                       obscureText: true,
                     ),
