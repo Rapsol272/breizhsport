@@ -66,7 +66,10 @@ class _LoginPageState extends State<LoginPage> {
       //             ),
       //           ],
       //         )))
+
       body: Container(
+        // Add padding to center the child in the middle of the screen
+        padding: const EdgeInsets.all(32),
         constraints: const BoxConstraints(
           maxWidth: 640,
         ),
@@ -100,17 +103,8 @@ class _LoginPageState extends State<LoginPage> {
                   obscureText: true,
                 ),
                 const SizedBox(height: 32),
+                // Full width button with rounded corners to connect to the server
                 ElevatedButton(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Icon(Icons.logout),
-                      Text('Se connecter'),
-                    ],
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size.fromHeight(48),
-                  ),
                   onPressed: () async {
                     final email = _emailController.text;
                     final password = _passwordController.text;
@@ -121,13 +115,33 @@ class _LoginPageState extends State<LoginPage> {
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(
-                            content: Text(
-                                "L'adresse email ou le mot de passe est incorrect.")),
+                          content: Text('Email ou mot de passe incorrect'),
+                        ),
                       );
                     }
                   },
+                  child: const Text('Se connecter'),
                 ),
+                const SizedBox(height: 32),
                 const Divider(),
+                const SizedBox(height: 32),
+                // row with text buttons to create an account
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Pas encore de compte? "),
+                    SizedBox(width: 32),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SignInPage()),
+                        );
+                      },
+                      child: const Text('Créer un compte'),
+                    ),
+                  ],
+                ),
               ])),
         ),
       ),
