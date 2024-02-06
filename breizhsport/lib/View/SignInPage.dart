@@ -12,6 +12,8 @@ class _SignInPageState extends State<SignInPage> {
   final Auth _auth = Auth();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _firstNameController = TextEditingController();
   final TextEditingController _lastNameController = TextEditingController();
@@ -124,10 +126,6 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                         labelText: 'Adresse mail',
                       ),
-                      inputFormatters: <TextInputFormatter>[
-                        FilteringTextInputFormatter.allow(RegExp(
-                            r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z0-9]+$')),
-                      ],
                     ),
                     const SizedBox(height: 32),
                     // Row of text fields
@@ -183,14 +181,13 @@ class _SignInPageState extends State<SignInPage> {
                                 Text(
                                     "Le mot de passe doit contenir au moins :"),
                                 SizedBox(height: 8),
-                                Text(
-                                    "  •  Le mot de passe doit contenir au moins :"),
+                                Text("  •  8 caractères"),
                                 SizedBox(height: 8),
-                                Text(
-                                    "  •  Le mot de passe doit contenir au moins :"),
+                                Text("  •  Une majuscule"),
                                 SizedBox(height: 8),
-                                Text(
-                                    "  •  Le mot de passe doit contenir au moins :")
+                                Text("  •  Un chiffre"),
+                                SizedBox(height: 8),
+                                Text("  •  1 caractère spécial : *!&%(),;.?# "),
                               ],
                             ),
                           ),
@@ -199,7 +196,7 @@ class _SignInPageState extends State<SignInPage> {
                     ),
                     const SizedBox(height: 32),
                     TextField(
-                      controller: _passwordController,
+                      controller: _confirmPasswordController,
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide(width: 1),
