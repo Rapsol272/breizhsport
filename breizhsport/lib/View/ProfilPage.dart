@@ -4,7 +4,6 @@ import 'package:breizhsport/Components/text_box.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:breizhsport/Ressources/User.dart';
 
 class ProfilPage extends StatefulWidget {
   @override
@@ -47,14 +46,12 @@ class _ProfilPageState extends State<ProfilPage> {
             ));
 
     if (newValue.trim().isNotEmpty) {
-      await usersCollection.doc(currentUser.email).update({field: newValue});
+      await usersCollection.doc(currentUser.uid).update({field: newValue});
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<DocumentSnapshot> documents = [];
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
@@ -62,7 +59,7 @@ class _ProfilPageState extends State<ProfilPage> {
       body: StreamBuilder<DocumentSnapshot>(
           stream: FirebaseFirestore.instance
               .collection("users")
-              .doc(currentUser.email)
+              .doc(currentUser.uid)
               .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData && snapshot.data!.exists) {
@@ -73,7 +70,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   const Icon(Icons.person, size: 72),
                   const SizedBox(height: 10),
                   Text(
-                    currentUser!.email!,
+                    currentUser.email!,
                     textAlign: TextAlign.center,
                     style: TextStyle(color: Colors.grey[700]),
                   ),
