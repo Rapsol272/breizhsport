@@ -14,10 +14,13 @@ class _PaymentPageState extends State<PaymentPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
-  // Adresse
-  final TextEditingController _adresseController = TextEditingController();
-  final TextEditingController _cpController = TextEditingController();
-  final TextEditingController _villeController = TextEditingController();
+  // Adresse facturation
+  final TextEditingController _adresseFacturationController =
+      TextEditingController();
+  final TextEditingController _cpFacturationController =
+      TextEditingController();
+  final TextEditingController _villeFacturationController =
+      TextEditingController();
 
   // Adresse livraison
   final TextEditingController _adresseLivraisonController =
@@ -197,19 +200,125 @@ class _PaymentPageState extends State<PaymentPage> {
                   padding: const EdgeInsets.all(32),
                   child: Row(
                     children: [
-                      Text("data"),
+                      // Right column
+                      Expanded(
+                        child: Column(children: [
+                          const Text(
+                            "Adresse de livraison",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 32),
+                          TextField(
+                            controller: _adresseLivraisonController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              labelText: 'Adresse',
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          // Row of text fields
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: _cpLivraisonController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    ),
+                                    labelText: 'Code Postal',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 32),
+                              Expanded(
+                                child: TextField(
+                                  controller: _villeLivraisonController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    ),
+                                    labelText: 'Ville',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+
+                          const SizedBox(height: 32),
+
+                          const Divider(
+                            color: Colors.grey,
+                            thickness: 1,
+                          ),
+
+                          const SizedBox(height: 32),
+
+                          const Text(
+                            "Adresse de facturation",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 32),
+                          TextField(
+                            controller: _adresseFacturationController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              labelText: 'Adresse',
+                            ),
+                          ),
+                          const SizedBox(height: 32),
+                          // Row of text fields
+                          Row(
+                            children: [
+                              Expanded(
+                                child: TextField(
+                                  controller: _cpFacturationController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    ),
+                                    labelText: 'Code Postal',
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 32),
+                              Expanded(
+                                child: TextField(
+                                  controller: _villeFacturationController,
+                                  decoration: const InputDecoration(
+                                    border: OutlineInputBorder(
+                                      borderSide: BorderSide(width: 1),
+                                    ),
+                                    labelText: 'Ville',
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ]),
+                      ),
+
+                      // DIVIDER
                       SizedBox(width: 16),
                       const VerticalDivider(
                         color: Colors.grey,
                         thickness: 1,
                       ),
                       SizedBox(width: 16),
+
+                      // Right column
                       Expanded(
                         child: Column(children: [
                           const Text(
                             "Informations de paiement",
                             style: TextStyle(
-                                fontSize: 28, fontWeight: FontWeight.bold),
+                                fontSize: 22, fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 32),
                           TextField(
@@ -269,8 +378,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 color: Color.fromARGB(247, 255, 245, 237),
                                 child: Padding(
                                   padding: EdgeInsets.all(16),
-                                  child: Text(
-                                      "Total de votre commande : XXX.XX €"),
+                                  child: Text("Rappel du total : XXX.XX €"),
                                 ),
                               ),
                             ],
