@@ -14,6 +14,24 @@ class _PaymentPageState extends State<PaymentPage> {
   final _formKey = GlobalKey<FormState>();
   bool _isLoading = false;
 
+  // Adresse
+  final TextEditingController _adresseController = TextEditingController();
+  final TextEditingController _cpController = TextEditingController();
+  final TextEditingController _villeController = TextEditingController();
+
+  // Adresse livraison
+  final TextEditingController _adresseLivraisonController =
+      TextEditingController();
+  final TextEditingController _cpLivraisonController = TextEditingController();
+  final TextEditingController _villeLivraisonController =
+      TextEditingController();
+
+  // Carte
+  final TextEditingController _numeroCarteController = TextEditingController();
+  final TextEditingController _cvcController = TextEditingController();
+  final TextEditingController _dateFinController = TextEditingController();
+  final TextEditingController _nomCarteController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     // return Scaffold(
@@ -162,45 +180,102 @@ class _PaymentPageState extends State<PaymentPage> {
     //   ),
     // );
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Validation de la commande'),
-        ),
+        appBar: AppBar(),
         body: Center(
-            child: Container(
-          alignment: Alignment.center,
-          constraints: const BoxConstraints(
-            maxWidth: 840,
-          ),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const SizedBox(height: 16),
-            const Text(
-              "Se connecter",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          child: Container(
+            // Add padding to center the child in the middle of the screen
+            padding: const EdgeInsets.all(32),
+            constraints: const BoxConstraints(
+              maxWidth: 640,
             ),
-            const SizedBox(height: 16),
-            Card(
+            child: Card(
               // Add a border to the card
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(16),
                   side: const BorderSide(color: Colors.grey)),
               child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    Container(),
-                    const SizedBox(width: 16),
-                    Column(),
-                    const VerticalDivider(
-                      color: Colors.grey,
+                  padding: const EdgeInsets.all(32),
+                  child: Column(children: [
+                    const Text(
+                      "Informations de paiement",
+                      style:
+                          TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                     ),
-                    const SizedBox(height: 16),
-                    Column(),
-                  ],
-                ),
-              ),
-            )
-          ]),
-        )));
+                    const SizedBox(height: 32),
+                    TextField(
+                      controller: _numeroCarteController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1),
+                        ),
+                        labelText: 'Numéro de carte',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    TextField(
+                      controller: _nomCarteController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(width: 1),
+                        ),
+                        labelText: 'Propriétaire de la carte',
+                      ),
+                    ),
+                    const SizedBox(height: 32),
+                    // Row of text fields
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _cvcController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              labelText: 'Cryptogramme',
+                            ),
+                          ),
+                        ),
+                        const SizedBox(width: 32),
+                        Expanded(
+                          child: TextField(
+                            controller: _dateFinController,
+                            decoration: const InputDecoration(
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(width: 1),
+                              ),
+                              labelText: 'Date d\'expiration',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 32),
+                    const Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Card(
+                          color: Color.fromARGB(247, 255, 245, 237),
+                          child: Padding(
+                            padding: EdgeInsets.all(16),
+                            child: Text("Total de votre commande : XXX.XX €"),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 32),
+                    ElevatedButton(
+                      onPressed: () => {},
+                      child: const Text('Valider la commande'),
+                    ),
+                    const SizedBox(height: 32),
+                    const Divider(),
+                    const SizedBox(height: 32),
+                  ])),
+            ),
+          ),
+        ));
   }
 }
