@@ -100,6 +100,29 @@ class _ProfilPageState extends State<ProfilPage> {
                         'Mes commandes',
                         style: TextStyle(color: Colors.grey[600]),
                       )),
+                  const SizedBox(height: 200),
+                  StreamBuilder(
+                      stream: FirebaseFirestore.instance
+                          .collection("users")
+                          .doc(currentUser.uid)
+                          .collection('commande')
+                          .snapshots(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.builder(
+                              itemCount: snapshot.data?.docs.length,
+                              itemBuilder: (context, index) {
+                                final data = snapshot.data?.docs[index].data()
+                                    as Map<String, dynamic>;
+                                return ListTile(
+                                  title: Text(data['Date'].toString()),
+                                  subtitle: Text(data['TotalPrice'].toString()),
+                                );
+                              });
+                        } else {
+                          return const Center(child: CircularProgressIndicator());
+                        }
+                      }),
                 ],
               );
             } else if (snapshot.hasError) {

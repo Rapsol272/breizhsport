@@ -1,3 +1,4 @@
+import 'package:breizhsport/Ressources/Payment.dart';
 import 'package:flutter/material.dart';
 import '../Ressources/Cart.dart';
 
@@ -371,22 +372,31 @@ class _PaymentPageState extends State<PaymentPage> {
                           ),
 
                           const SizedBox(height: 32),
-                          const Column(
+                           Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               Card(
-                                color: Color.fromARGB(247, 255, 245, 237),
+                                color:const Color.fromARGB(247, 255, 245, 237),
                                 child: Padding(
-                                  padding: EdgeInsets.all(16),
-                                  child: Text("Rappel du total : XXX.XX €"),
+                                  padding: const EdgeInsets.all(16),
+                                  child: Text("Rappel du total : " + widget.cart.total.toString() + " €"),
                                 ),
                               ),
                             ],
                           ),
-
+//bouton de validation avec insertion on base dans la collection user puis collection commande du resumé de la commande
                           const SizedBox(height: 32),
                           ElevatedButton(
-                            onPressed: null,
+                            onPressed: 
+                            () {
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                Payment().addCommandeUser(widget.cart , DateTime.now(), _adresseLivraisonController.text, _cpLivraisonController.text, _villeLivraisonController.text, _adresseFacturationController.text, _cpFacturationController.text, _villeFacturationController.text, _numeroCarteController.text, _cvcController.text, _dateFinController.text, _nomCarteController.text);
+                              }
+                            }
+                            ,
                             child: const Text('Valider la commande'),
                           ),
                         ]),
