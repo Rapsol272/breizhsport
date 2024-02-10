@@ -100,7 +100,7 @@ class ProductWidget extends StatelessWidget {
                               ))),
                       //ajout de la description du produit limmite a 4 lignes
                       Text(product.description,
-                          maxLines: 3,
+                          maxLines: 2,
                           style: TextStyle(
                             fontSize: (constraints.maxHeight * 0.04),
                             fontWeight: FontWeight.w100,
