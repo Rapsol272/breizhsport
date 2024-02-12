@@ -15,7 +15,14 @@ class Cart {
   }
 
   void remove(Product product) {
-    items.remove(product);
+    if (items.contains(product)) {
+      items[items.indexWhere((element) => element == product)].quantity -= 1;
+
+      if (items[items.indexWhere((element) => element == product)].quantity ==
+          0) {
+        items.remove(product);
+      }
+    }
   }
 
   void clear() {

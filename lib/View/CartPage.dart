@@ -11,7 +11,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Shopping Cart'),
+          title: const Text('Mon panier'),
         ),
         //liste des produits dans le panier
         body: Padding(
@@ -37,7 +37,8 @@ class CartPage extends StatelessWidget {
                                   fit: BoxFit.cover,
                                 ),
                                 title: Text(item.name),
-                                subtitle: Text('Price: ${item.price}€'),
+                                subtitle: Text(
+                                    'Price: ${item.price.toStringAsFixed(2)}€'),
                                 trailing: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
@@ -56,7 +57,7 @@ class CartPage extends StatelessWidget {
                                     ),
                                     //affichage du prix total pour chaque produit
                                     Text(
-                                        'Total: ${item.price * item.quantity}€'),
+                                        'Total: ${(item.price * item.quantity).toStringAsFixed(2)}€'),
                                   ],
                                 ),
                               ),
@@ -78,15 +79,18 @@ class CartPage extends StatelessWidget {
                   child: Column(
                     children: [
                       SizedBox(
+                        height: 32,
                         width: MediaQuery.of(context).size.width * 0.2,
                       ),
                       Text(
-                        'Sous-Total: ${cart.total}€',
+                        'Sous-Total: ${cart.total.toStringAsFixed(2)}€',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      const SizedBox(height: 32),
                       Text('Articles: ${cart.totalQuantity}'),
+                      const SizedBox(height: 32),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.push(
