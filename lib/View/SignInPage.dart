@@ -6,6 +6,10 @@ import 'package:flutter/services.dart';
 class SignInPage extends StatefulWidget {
   @override
   _SignInPageState createState() => _SignInPageState();
+
+  static bool validateEmail(String input) {
+    return RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$').hasMatch(input);
+  }
 }
 
 class _SignInPageState extends State<SignInPage> {
