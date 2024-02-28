@@ -19,8 +19,9 @@ class Payment {
     if (user == null) {
       throw Exception("No user found");
     } else {
-      String idCommande = '';
-      await instanceFirestore.doc().set({
+      instanceFirestore = FirebaseFirestore.instance.collection("users").doc(user!.uid).collection('commande');
+      String idCommande = instanceFirestore.doc().id;
+      await instanceFirestore.doc(idCommande).set({
         'TotalPrice': cart.total,
         'Date': timenow,
         'name': user!.displayName,
@@ -37,9 +38,7 @@ class Payment {
         'cvc': cvc,
         'dateFin': dateFin,
         'nomCarte': nomCarte,
-      }).then((value) => idCommande = instanceFirestore.id);
-      //recuperer l'id de la commande
-
+      });
       
       
       //on ajoute maitenant dans la collection comande une collection produit

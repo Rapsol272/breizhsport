@@ -390,10 +390,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           const SizedBox(height: 32),
                           ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                setState(() {
-                                  _isLoading = true;
-                                });
+                              if (true) {
                                 Payment().addCommandeUser(
                                     widget.cart,
                                     DateTime.now(),
@@ -407,6 +404,10 @@ class _PaymentPageState extends State<PaymentPage> {
                                     _cvcController.text,
                                     _dateFinController.text,
                                     _nomCarteController.text);
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                
                               }
                             },
                             child: const Text('Valider la commande'),
