@@ -78,7 +78,7 @@ class _ProfilPageState extends State<ProfilPage> {
                   Padding(
                       padding: const EdgeInsets.only(left: 25.0),
                       child: Text(
-                        'My details',
+                        'Détails',
                         style: TextStyle(color: Colors.grey[600]),
                       )),
                   TextBox(
@@ -120,7 +120,8 @@ class _ProfilPageState extends State<ProfilPage> {
                                 );
                               });
                         } else {
-                          return const Center(child: CircularProgressIndicator());
+                          return const Center(
+                              child: CircularProgressIndicator());
                         }
                       }),
                 ],

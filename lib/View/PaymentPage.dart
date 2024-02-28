@@ -381,7 +381,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                 child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Text("Rappel du total : " +
-                                      widget.cart.total.toString() +
+                                      widget.cart.total.toStringAsFixed(2) +
                                       " €"),
                                 ),
                               ),
@@ -407,21 +407,29 @@ class _PaymentPageState extends State<PaymentPage> {
                                 },
                               );
                               await Payment().addCommandeUser(
-                                    widget.cart,
-                                    DateTime.now(),
-                                    _adresseLivraisonController.text,
-                                    _cpLivraisonController.text,
-                                    _villeLivraisonController.text,
-                                    _adresseFacturationController.text,
-                                    _cpFacturationController.text,
-                                    _villeFacturationController.text,
-                                    _numeroCarteController.text,
-                                    _cvcController.text,
-                                    _dateFinController.text,
-                                    _nomCarteController.text);
-                                  Navigator.of(context).pop(); // close the dialog
-                                  // navigate to home page
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+                                  widget.cart,
+                                  DateTime.now(),
+                                  _adresseLivraisonController.text,
+                                  _cpLivraisonController.text,
+                                  _villeLivraisonController.text,
+                                  _adresseFacturationController.text,
+                                  _cpFacturationController.text,
+                                  _villeFacturationController.text,
+                                  _numeroCarteController.text,
+                                  _cvcController.text,
+                                  _dateFinController.text,
+                                  _nomCarteController.text);
+                              Navigator.of(context).pop(); // close the dialog
+                              // navigate to home page
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomePage()));
+                              /*ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                    content: Text(
+                                        'La commande a bien été validée.')),
+                              );*/
                             },
                             child: const Text('Valider la commande'),
                           ),
