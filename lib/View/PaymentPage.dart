@@ -1,4 +1,5 @@
 import 'package:breizhsport/Ressources/Payment.dart';
+import 'package:breizhsport/View/HomePage.dart';
 import 'package:flutter/material.dart';
 import '../Ressources/Cart.dart';
 
@@ -389,9 +390,23 @@ class _PaymentPageState extends State<PaymentPage> {
 //bouton de validation avec insertion on base dans la collection user puis collection commande du resumé de la commande
                           const SizedBox(height: 32),
                           ElevatedButton(
-                            onPressed: () {
-                              if (true) {
-                                Payment().addCommandeUser(
+                            onPressed: () async {
+                              showDialog(
+                                context: context,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) {
+                                  return Dialog(
+                                    child: new Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        new CircularProgressIndicator(),
+                                        new Text("Processing..."),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                              await Payment().addCommandeUser(
                                     widget.cart,
                                     DateTime.now(),
                                     _adresseLivraisonController.text,
@@ -404,11 +419,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                     _cvcController.text,
                                     _dateFinController.text,
                                     _nomCarteController.text);
-                                setState(() {
-                                  _isLoading = true;
-                                });
-                                
-                              }
+                                  Navigator.of(context).pop(); // close the dialog
+                                  // navigate to home page
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                             },
                             child: const Text('Valider la commande'),
                           ),
