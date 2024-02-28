@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import '../Ressources/Cart.dart';
 import 'PaymentPage.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   final Cart cart;
 
   CartPage({required this.cart});
+
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +27,9 @@ class CartPage extends StatelessWidget {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: cart.items.length,
+                    itemCount: widget.cart.items.length,
                     itemBuilder: (context, index) {
-                      final item = cart.items[index];
+                      final item = widget.cart.items[index];
                       return Row(
                         children: [
                           Expanded(
@@ -45,14 +51,18 @@ class CartPage extends StatelessWidget {
                                     IconButton(
                                       icon: Icon(Icons.remove),
                                       onPressed: () {
-                                        cart.remove(item);
+                                        setState(() {
+                                          item.quantity--;
+                                        });
                                       },
                                     ),
                                     Text(item.quantity.toString()),
                                     IconButton(
                                       icon: Icon(Icons.add),
                                       onPressed: () {
-                                        cart.addItem(item);
+                                        setState(() {
+                                          item.quantity++;
+                                        });
                                       },
                                     ),
                                     //affichage du prix total pour chaque produit
@@ -83,13 +93,13 @@ class CartPage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.2,
                       ),
                       Text(
-                        'Sous-Total: ${cart.total.toStringAsFixed(2)}€',
+                        'Sous-Total: ${widget.cart.total.toStringAsFixed(2)}€',
                         style: const TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 32),
-                      Text('Articles: ${cart.totalQuantity}'),
+                      Text('Articles: ${widget.cart.totalQuantity}'),
                       const SizedBox(height: 32),
                       ElevatedButton(
                         onPressed: () {
@@ -97,7 +107,7 @@ class CartPage extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      PaymentPage(cart: cart)));
+                                      PaymentPage(cart: widget.cart)));
                         },
                         child: const Row(
                           mainAxisSize: MainAxisSize.min,
