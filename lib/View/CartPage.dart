@@ -52,7 +52,11 @@ class _CartPageState extends State<CartPage> {
                                       icon: Icon(Icons.remove),
                                       onPressed: () {
                                         setState(() {
-                                          item.quantity--;
+                                          if (item.quantity > 1)  
+                                            item.quantity--;
+                                          else
+                                            widget.cart.remove(item);
+
                                         });
                                       },
                                     ),
